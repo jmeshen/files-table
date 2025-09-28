@@ -1,1 +1,14 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+@import url("files-table.css");
+
+html {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;
+  color: #555;
+  text-align: left;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  width: 1.6rem;
+  height: 1.6rem;
+}

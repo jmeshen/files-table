@@ -1,7 +1,7 @@
-{{page-title "Homework"}}
+{{page-title "Files Table"}}
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
+<h1>Example with sample file data</h1>
+<FilesTable @files={{this.files}} />
+<h1>Example without data</h1>
+<FilesTable />
 {{outlet}}

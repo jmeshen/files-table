@@ -1,0 +1,73 @@
+<div class="files-table__container">
+  {{#if (eq this.decoratedFiles.length 0)}}
+    <EmberTable class="files-table" as |t|>
+      <t.head
+        class="files-table__header__cell"
+        @columns={{this.columns}}
+        @sorts={{this.sorts}}
+        @onUpdateSorts={{fn (mut this.sorts)}}
+        @widthConstraint="eq-container-slack"
+      />
+      <t.body @rows={{this.decoratedFiles}} as |b| />
+    </EmberTable>
+    <div class="files-table__empty-state">
+      <p>No files available</p>
+    </div>
+  {{else}}
+    <div class="files-table__actions">
+      <input
+        data-test-select-all-checkbox
+        type="checkbox"
+        indeterminate={{this.isIndeterminate}}
+        checked={{this.isAllSelected}}
+        {{on "change" this.toggleSelectAll}}
+        aria-label="Select all files"
+      />
+      <span>
+        {{this.selectedText}}
+      </span>
+      {{#if this.shouldShowDownloadAction}}
+        <button
+          type="button"
+          class="files-table__actions__download-btn"
+          {{on "click" this.downloadAvailableFiles}}
+        >
+          <span aria-hidden="true">⬇</span>
+          Download Selected
+        </button>
+      {{/if}}
+    </div>
+    <EmberTable class="files-table" as |t|>
+      <t.head
+        class="files-table__header__cell"
+        @columns={{this.columns}}
+        @sorts={{this.sorts}}
+        @onUpdateSorts={{fn (mut this.sorts)}}
+        @widthConstraint="eq-container-slack"
+      />
+      <t.body
+        @rows={{this.decoratedFiles}}
+        @onSelect={{this.updateSelection}}
+        @selection={{this.selection}}
+        @rowSelectionMode="multiple"
+        @checkboxSelectionMode="multiple"
+        as |b|
+      >
+        <b.row class="files-table__row" as |r|>
+          <r.cell class="files-table__cell" as |value|>
+            <div
+              class="files-table__cell__content
+                {{if
+                  (eq value 'Available')
+                  'files-table__cell__content--status-available'
+                }}"
+              title="{{value}}"
+            >
+              {{value}}
+            </div>
+          </r.cell>
+        </b.row>
+      </t.body>
+    </EmberTable>
+  {{/if}}
+</div>
